@@ -19,7 +19,7 @@ class FraisForfait
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lebelle = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0', nullable: true)]
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '2', nullable: true)]
     private ?string $montant = null;
 
     #[ORM\OneToMany(mappedBy: 'fraisForfait', targetEntity: LigneFraisForfait::class, orphanRemoval: true)]
