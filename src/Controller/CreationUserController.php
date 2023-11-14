@@ -19,7 +19,7 @@ class CreationUserController extends AbstractController
         $password = "1234";
         $user->setEmail("hamlaoui1@test");
         $user->setCp("74000");
-        $user->setDateEmbauche(new \DateTime('now'));
+        $user->setDateembauche(new \DateTime('now'));
         $user->setNom("inzoudine");
         $user->setPrenom("hamlaoui");
         $user->setAdresse("chez ma maman");

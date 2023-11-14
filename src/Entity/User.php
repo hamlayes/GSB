@@ -52,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $fichesFrais;
 
     #[ORM\Column(length: 255)]
-    private ?string $OldId = null;
+    private ?string $oldId = null;
 
     public function __construct()
     {
@@ -233,12 +233,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getOldId(): ?string
     {
-        return $this->OldId;
+        return $this->oldId;
     }
 
-    public function setOldId(string $OldId): static
+    public function setOldId(string $oldId): static
     {
-        $this->OldId = $OldId;
+        $this->oldId = $oldId;
 
         return $this;
     }

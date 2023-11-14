@@ -2,8 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\FicheFrais;
+use App\Entity\FraisForfait;
+use App\Entity\LigneFraisForfait;
+use App\Entity\LigneFraisHorsForfait;
 use App\Entity\User;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,11 +22,9 @@ class DataImportController extends AbstractController
     {
         $usersjson = file_get_contents('./visiteur.json');
         $users = json_decode($usersjson,true);
-        var_dump($users);
-        $newFF = new FicheFrais();
 
         foreach ($users as $user) {
-            dd($user);
+
             $nvUser = new User();
 
             $nvUser->setOldId($user['id']);
@@ -35,15 +38,153 @@ class DataImportController extends AbstractController
             $nvUser->setAdresse($user['adresse']);
             $nvUser->setCp($user['cp']);
             $nvUser->setVille($user['ville']);
-            $nvUser->setDateEmbauche($user['dateEmbauche']);
+            $nvUser->setEmail(strtolower($user['prenom'].".".$user['nom']."@gsb.fr"));
+
+            $nvUser->setDateembauche(new DateTime( $user['dateEmbauche']));
 
 
-            $entityManager->getRepository(User::class)->findOneBy($usersjson['oldId']);
-            $newFF->getUser($nvUser);
-
-            $entity->persist($user);
+            $entity->persist($nvUser);
             $entity->flush();
         }
+
+
+
+        return $this->render('data_import/index.html.twig', [
+            'controller_name' => 'DataImportController',
+        ]);
+    }
+
+    #[Route('/import/fiche')]
+    public function fiche(EntityManagerInterface $entity, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $usersjson = file_get_contents('./fichefrais.json');
+        $fichefrais = json_decode($usersjson,true);
+
+        foreach ($fichefrais as $fiche) {
+
+            $nvFiche = new FicheFrais();
+
+            switch ($fiche['idEtat']){
+                case "CL":
+                    $etat = $entity->getRepository(Etat::class)->find(1);
+                    break;
+                case "CR":
+                    $etat = $entity->getRepository(Etat::class)->find(2);
+                    break;
+                case "RB":
+                    $etat = $entity->getRepository(Etat::class)->find(3);
+                    break;
+                case "VA":
+                    $etat = $entity->getRepository(Etat::class)->find(4);
+                    break;
+            }
+
+            $nvFiche->setUser($entity->getRepository(User::class)->findOneBy(['oldId'=>$fiche['idVisiteur']]));
+            $nvFiche->setMois($fiche['mois']);
+            $nvFiche->setNbJustificatifs($fiche['mois']);
+            $nvFiche->setMontantValid($fiche['montantValide']);
+            $nvFiche->setDateModif(new DateTime($fiche['mois']));
+            $nvFiche->setEtat($etat);
+
+
+
+            $entity->persist($nvFiche);
+            $entity->flush();
+        }
+
+
+
+        return $this->render('data_import/index.html.twig', [
+            'controller_name' => 'DataImportController',
+        ]);
+    }
+
+    #[Route('/import/ligneFraisForfais')]
+    public function forfait(EntityManagerInterface $entity, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $forfaitjson = file_get_contents('./lignefraisforfait.json');
+        $fraisforfait = json_decode($forfaitjson,true);
+
+        foreach ($fraisforfait as $fforfait) {
+
+            $nvForfait = new LigneFraisForfait();
+
+            switch ($fforfait['idFraisForfait']){
+                case "ETP":
+                    $ff= $entity->getRepository(FraisForfait::class)->find(1);
+                    break;
+                case "KM":
+                    $ff = $entity->getRepository(FraisForfait::class)->find(2);
+                    break;
+                case "NUI":
+                    $ff = $entity->getRepository(FraisForfait::class)->find(3);
+                    break;
+                case "REP":
+                    $ff = $entity->getRepository(FraisForfait::class)->find(4);
+                    break;
+            }
+
+            $user = $entity->getRepository(User::class)->findOneBy(['oldId'=>$fforfait['idVisiteur']]);
+            $fiche = $entity->getRepository(FicheFrais::class)->findOneBy(['mois' => $fforfait['mois'],'user' => $user]);
+            $nvForfait->setFichesfrais($fiche);
+            $nvForfait->setFraisForfait($ff);
+            $nvForfait->setQuantite($fforfait['quantite']);
+
+
+
+
+            $entity->persist($nvForfait);
+            $entity->flush();
+        }
+
+
+
+        return $this->render('data_import/index.html.twig', [
+            'controller_name' => 'DataImportController',
+        ]);
+    }
+
+
+    #[Route('/import/ligneFraisHorsForfais')]
+    public function horsforfait(EntityManagerInterface $entity, UserPasswordHasherInterface $passwordHasher): Response
+    {
+        $horsforfaitjson = file_get_contents('./lignefraishorsforfait.json');
+        $fraishorsforfait = json_decode($horsforfaitjson,true);
+
+        foreach ($fraishorsforfait as $fhforfait) {
+
+            $nvHorsForfait = new LigneFraisHorsForfait();
+
+            switch ($fhforfait['id']){
+                case "ETP":
+                    $fhf= $entity->getRepository(FraisForfait::class)->find(1);
+                    break;
+                case "KM":
+                    $fhf = $entity->getRepository(FraisForfait::class)->find(2);
+                    break;
+                case "NUI":
+                    $fhf = $entity->getRepository(FraisForfait::class)->find(3);
+                    break;
+                case "REP":
+                    $fhf = $entity->getRepository(FraisForfait::class)->find(4);
+                    break;
+            }
+
+            $user = $entity->getRepository(User::class)->findOneBy(['oldId'=>$fhforfait['idVisiteur']]);
+            $fiche = $entity->getRepository(FicheFrais::class)->findOneBy(['mois' => $fhforfait['mois'],'user' => $user]);
+            $nvHorsForfait->setFichesfrais($fiche);
+            $nvHorsForfait->setLebelle($fhforfait['libelle']);
+            $nvHorsForfait->setDate(new DateTime( $fhforfait['date']));
+            $nvHorsForfait->setMontant($fhforfait['montant']);
+
+
+
+
+            $entity->persist($nvHorsForfait);
+            $entity->flush();
+        }
+
+
 
         return $this->render('data_import/index.html.twig', [
             'controller_name' => 'DataImportController',

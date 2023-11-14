@@ -39,6 +39,9 @@ class FicheFrais
     #[ORM\OneToMany(mappedBy: 'fichesfrais', targetEntity: LigneFraisForfait::class)]
     private Collection $ligneFraisForfait;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $montantValid = null;
+
     public function __construct()
     {
         $this->LignefraisHorsForfait = new ArrayCollection();
@@ -173,6 +176,18 @@ class FicheFrais
                 $ligneFraisForfait->setFichesfrais(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMontantValid(): ?string
+    {
+        return $this->montantValid;
+    }
+
+    public function setMontantValid(string $montantValid): static
+    {
+        $this->montantValid = $montantValid;
 
         return $this;
     }
