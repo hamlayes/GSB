@@ -19,19 +19,20 @@ class FicheFraisController extends AbstractController
         $mesFichesFrais = $entity->getRepository(FicheFrais::class)->findBy(['user' => $this->getUser()]);
         $form = $this->createForm(FicheFraisType::class, $mesFichesFrais);
         $form->handleRequest($request);
-
+        /**@var FicheFrais $selectFiche*/
+        $selectFiche =null;
         if ($form->isSubmitted() && $form->isValid()) {
 
-
-            $entity->persist();
-            $entity->flush();
+             $selectFiche = $form->get('listMois')->getData();
 
         }
 
 
+
+
         return $this->render('fiche_frais/index.html.twig', [
             'form' => $form,
-
+            'select'=>$selectFiche,
         ]);
     }
 }

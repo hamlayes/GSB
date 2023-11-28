@@ -9,12 +9,36 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Mes Fiches</h1>
+    <h1>Ma Fiche</h1>
 
-    <form action="{{ path('app_fiche_frais') }}" method="post">
-        {{ form(form) }}
-        <button type="submit" class="btn btn-warning">Voir la fiche</button>
-    </form>
+    {{ form(form) }}
+    {% if select is not null %}
+        <table>
+            <thead>
+            <tr>
+                <th>État</th>
+                <th>Nom d'utilisateur</th>
+                <th>Mois</th>
+                <th>Date de Modification</th>
+                <th>Montant Validé</th>
+                <th>Nombre de Justificatifs</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if select is not null %}
+                <tr>
+                    <td>{{ select.etat.libelle }}</td>
+                    <td>{{ select.user.nom }}</td>
+                    <td>{{ select.moisFormated | date('m-Y') }}</td>
+                    <td>{{ select.dateModif | date('d-m-Y') }}</td>
+                    <td>{{ select.montantValid }}</td>
+                    <td>{{ select.nbJustificatifs }}</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    {% endif %}
+
 
 </div>
 {% endblock %}
