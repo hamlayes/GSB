@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\FicheFrais;
+use App\Entity\FraisForfait;
 use App\Form\FicheFraisType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,9 @@ class FicheFraisController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entity): Response
     {
         $mesFichesFrais = $entity->getRepository(FicheFrais::class)->findBy(['user' => $this->getUser()]);
+        $tot=0;
+        $fraisForfait = $entity->getRepository(FraisForfait::class)->findAll();
+
         $form = $this->createForm(FicheFraisType::class, $mesFichesFrais);
         $form->handleRequest($request);
         /**@var FicheFrais $selectFiche*/
@@ -26,13 +30,19 @@ class FicheFraisController extends AbstractController
              $selectFiche = $form->get('listMois')->getData();
 
         }
-
+        $tot = $mesFichesFrais->gethorsforfait();
 
 
 
         return $this->render('fiche_frais/index.html.twig', [
             'form' => $form,
             'select'=>$selectFiche,
+            'fraisForfait'=>$fraisForfait,
+
+
         ]);
     }
+
+
+
 }

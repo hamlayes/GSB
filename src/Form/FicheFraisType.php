@@ -17,6 +17,7 @@ class FicheFraisType extends AbstractType
     {
         $builder
             ->add('listMois', ChoiceType::class, [
+                'label'=>' Selectionnez le mois : ',
                 'choices' => $options['data'],
                 'choice_label'=> function($choice): string{
                     $date = \DateTimeImmutable::createFromFormat('Ym',$choice->getMois());

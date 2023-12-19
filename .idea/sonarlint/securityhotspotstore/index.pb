@@ -121,3 +121,9 @@ K
 src/Form/FicheFraisType.php,8\c\8cec48f0b1d86b797e7d9b8f3bad561cba2e0f4c
 W
 'src/Repository/FicheFraisRepository.php,c\2\c2c89a0a89f51a6481bb4f28e6290569f765644b
+\
+,src/Controller/SaisiFicheFraisController.php,9\b\9b109d0cc5de38e4d3e08f42314e87abecaa2c74
+X
+(src/Form/SaisirLigneFraisForfaitType.php,c\4\c46ac1257c97bdfa1ebed7a1fa7edc6fb729b387
+\
+,src/Form/SaisirLigneFraisHorsForfaitType.php,6\2\62f41889fb5e1f1102cf5c21352a19ce85ef0924

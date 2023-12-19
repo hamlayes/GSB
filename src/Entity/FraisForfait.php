@@ -25,6 +25,7 @@ class FraisForfait
     #[ORM\OneToMany(mappedBy: 'fraisForfait', targetEntity: LigneFraisForfait::class, orphanRemoval: true)]
     private Collection $ligneFraisForfaits;
 
+
     public function __construct()
     {
         $this->ligneFraisForfaits = new ArrayCollection();
@@ -95,4 +96,6 @@ class FraisForfait
 
         return $this;
     }
+
+
 }

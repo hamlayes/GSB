@@ -33,10 +33,10 @@ class FicheFrais
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\OneToMany(mappedBy: 'fichesFrais', targetEntity: LigneFraisHorsForfait::class)]
+    #[ORM\OneToMany(mappedBy: 'fichesFrais', targetEntity: LigneFraisHorsForfait::class,fetch: "EAGER")]
     private Collection $LignefraisHorsForfait;
 
-    #[ORM\OneToMany(mappedBy: 'fichesfrais', targetEntity: LigneFraisForfait::class)]
+    #[ORM\OneToMany(mappedBy: 'fichesfrais', targetEntity: LigneFraisForfait::class,fetch: "EAGER")]
     private Collection $ligneFraisForfait;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
@@ -196,6 +196,17 @@ class FicheFrais
         $this->montantValid = $montantValid;
 
         return $this;
+    }
+
+    public function gethorsforfait()
+    {
+        $montantTotal = 0;
+
+        foreach ($this->LignefraisHorsForfait as $fichehorsFrais) {
+            $montantTotal += $fichehorsFrais->getMontant();
+        }
+
+        return $montantTotal;
     }
 
 
