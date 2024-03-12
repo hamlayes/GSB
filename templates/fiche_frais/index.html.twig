@@ -12,32 +12,60 @@
     <h1>Ma Fiche</h1>
 
     {{ form(form) }}
+    <br>
+    <br>
+
+
+    <h2>Eléments forfaitisés</h2>
     {% if select is not null %}
-        <table>
-            <thead>
+        <table class="table table-bordered">
+            <thead class="table-warning">
             <tr>
-                <th>État</th>
-                <th>Nom d'utilisateur</th>
-                <th>Mois</th>
-                <th>Date de Modification</th>
-                <th>Montant Validé</th>
-                <th>Nombre de Justificatifs</th>
+                {% for frais in fraisForfait %}
+                    <td>{{ frais.lebelle }}</td>
+                {% endfor %}
+
+
             </tr>
             </thead>
             <tbody>
             {% if select is not null %}
                 <tr>
-                    <td>{{ select.etat.libelle }}</td>
-                    <td>{{ select.user.nom }}</td>
-                    <td>{{ select.moisFormated | date('m-Y') }}</td>
-                    <td>{{ select.dateModif | date('d-m-Y') }}</td>
-                    <td>{{ select.montantValid }}</td>
-                    <td>{{ select.nbJustificatifs }}</td>
+                    {% for sel in select.ligneFraisForfait %}
+                        <td>{{ sel.quantite }}</td>
+                    {% endfor %}
+
                 </tr>
             {% endif %}
             </tbody>
         </table>
     {% endif %}
+
+    <br>
+    <br>
+
+    <h2>Eléments hors forfait</h2>
+    <table class="table table-bordered">
+        <thead class="table-warning">
+        <tr>
+            <th>Date</th>
+            <th>Libellé</th>
+            <th>Montant</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if select is not null %}
+                {% for sel in select.ligneFraisHorsForfait %}
+                    <tr>
+                        <td>{{ sel.date | date('d/m/Y') }}</td>
+                        <td>{{ sel.lebelle }}</td>
+                        <td>{{ sel.montant }}</td>
+                    </tr>
+                {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+    <p>Montant Total : {{  }}</p>
 
 
 </div>
