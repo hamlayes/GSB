@@ -30,7 +30,7 @@ class FicheFraisController extends AbstractController
              $selectFiche = $form->get('listMois')->getData();
 
         }
-        $tot = $mesFichesFrais->gethorsforfait();
+
 
 
 
