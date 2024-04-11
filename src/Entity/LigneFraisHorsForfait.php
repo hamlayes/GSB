@@ -15,7 +15,7 @@ class LigneFraisHorsForfait
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $lebelle = null;
+    private ?string $libelle = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $date = null;
@@ -38,14 +38,14 @@ class LigneFraisHorsForfait
         return $this;
     }
 
-    public function getLebelle(): ?string
+    public function getLibelle(): ?string
     {
-        return $this->lebelle;
+        return $this->libelle;
     }
 
-    public function setLebelle(?string $lebelle): static
+    public function setLibelle(?string $lebelle): static
     {
-        $this->lebelle = $lebelle;
+        $this->libelle = $lebelle;
 
         return $this;
     }

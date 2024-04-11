@@ -47,12 +47,12 @@ class LigneFraisForfait
         return $this;
     }
 
-    public function getFichesfrais(): ?FicheFrais
+    public function getFichesFrais(): ?FicheFrais
     {
         return $this->fichesfrais;
     }
 
-    public function setFichesfrais(?FicheFrais $fichesfrais): static
+    public function setFichesFrais(?FicheFrais $fichesfrais): static
     {
         $this->fichesfrais = $fichesfrais;
 
@@ -70,4 +70,5 @@ class LigneFraisForfait
 
         return $this;
     }
+
 }

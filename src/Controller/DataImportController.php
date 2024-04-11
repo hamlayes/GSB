@@ -81,7 +81,7 @@ class DataImportController extends AbstractController
 
             $nvFiche->setUser($entity->getRepository(User::class)->findOneBy(['oldId'=>$fiche['idVisiteur']]));
             $nvFiche->setMois($fiche['mois']);
-            $nvFiche->setNbJustificatifs($fiche['mois']);
+            $nvFiche->setNbJustificatifs($fiche['nbJustificatifs']);
             $nvFiche->setMontantValid($fiche['montantValide']);
             $nvFiche->setDateModif(new DateTime($fiche['mois']));
             $nvFiche->setEtat($etat);

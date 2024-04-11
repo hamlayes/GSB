@@ -19,10 +19,12 @@ class FicheFraisType extends AbstractType
             ->add('listMois', ChoiceType::class, [
                 'label'=>' Selectionnez le mois : ',
                 'choices' => $options['data'],
+                'data' => new \DateTime('now'),
                 'choice_label'=> function($choice): string{
                     $date = \DateTimeImmutable::createFromFormat('Ym',$choice->getMois());
-                    return $date->format('M-Y');
+                    return $date->format('F - Y');
                 }
+
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Voir la fiche',  // Texte du bouton

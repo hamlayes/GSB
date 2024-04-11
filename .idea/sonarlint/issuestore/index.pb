@@ -127,3 +127,11 @@ X
 (src/Form/SaisirLigneFraisForfaitType.php,c\4\c46ac1257c97bdfa1ebed7a1fa7edc6fb729b387
 \
 ,src/Form/SaisirLigneFraisHorsForfaitType.php,6\2\62f41889fb5e1f1102cf5c21352a19ce85ef0924
+S
+#templates/inflation/index.html.twig,1\f\1f9743dd135a5a5e3fe061a56203ccca0a62d5d6
+[
++templates/saisi_fiche_frais/index.html.twig,a\c\acdf2156a31d7e9a69e274115b44679a47e9117e
+V
+&src/Controller/InflationController.php,8\9\8963aacdbce520b3db5f5536923421fdbc964f42
+Q
+!templates/accueil/index.html.twig,f\a\fa81ccee5ac26ace64c2fb141152557053b33e50
