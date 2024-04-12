@@ -173,7 +173,7 @@ class DataImportController extends AbstractController
             $user = $entity->getRepository(User::class)->findOneBy(['oldId'=>$fhforfait['idVisiteur']]);
             $fiche = $entity->getRepository(FicheFrais::class)->findOneBy(['mois' => $fhforfait['mois'],'user' => $user]);
             $nvHorsForfait->setFichesfrais($fiche);
-            $nvHorsForfait->setLebelle($fhforfait['libelle']);
+            $nvHorsForfait->setLibelle($fhforfait['libelle']);
             $nvHorsForfait->setDate(new DateTime( $fhforfait['date']));
             $nvHorsForfait->setMontant($fhforfait['montant']);
 

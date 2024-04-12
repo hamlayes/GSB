@@ -135,3 +135,9 @@ V
 &src/Controller/InflationController.php,8\9\8963aacdbce520b3db5f5536923421fdbc964f42
 Q
 !templates/accueil/index.html.twig,f\a\fa81ccee5ac26ace64c2fb141152557053b33e50
+S
+#templates/comptable/index.html.twig,5\b\5b67105feb28c3092c7b394894c10d2c4e8423d0
+c
+3src/Controller/DeleteFicheHorsForfaitController.php,0\a\0ab68760334d9790ee6765430b86fdf1e6d28e47
+V
+&src/Controller/ComptableController.php,5\5\554df2bb658add3aa8a8687adfde37a1306341da

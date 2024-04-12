@@ -65,9 +65,10 @@ class FicheFrais
         return $this->mois;
     }
 
-    public function getMoisFormated(): ?\DateTimeImmutable
+    public function getMoisFormated(): ?string
     {
-       return \DateTimeImmutable::createFromFormat('Ym',$this->getMois());
+        $date = \DateTimeImmutable::createFromFormat('Ym', $this->mois);
+        return $date->format('F - Y');
 
     }
 
