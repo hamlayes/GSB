@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ComptableController!{% endblock %}
+
+{% block body %}
+
+    {{ form(fichesFraisForm) }}
+
+    <table class="table table-bordered">
+        <thead class="table-warning">
+        <tr>
+            <th>Mois</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for fiche in fichesFrais %}
+            <tr>
+                <td>{{ fiche.moisFormated }}</td>
+                <td>{{ fiche.etat.libelle }}</td>
+                <td>
+                    <a href="{{ path('app_vue_fiche_user', {'id': fiche.id}) }}" class="btn btn-primary">Voir</a>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

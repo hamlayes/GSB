@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SaisiFicheFraisController!{% endblock %}
+
+{% block body %}
+    <div class="container card view">
+        <h1 class="text-center title">Fiche du mois - {{ "now"|date('F Y') }}</h1>
+        <div class="row">
+            <div class="col card me-5">
+                <h1>Formulaire de Frais Forfait</h1>
+                {{ form_start(formLFF) }}
+                <div class="form-group align-input">
+                    {{ form_row(formLFF.etape, {'label': 'Étape:', 'label_attr': {'class': 'label-class'}}) }}
+                </div>
+                <div class="form-group align-input">
+                    {{ form_row(formLFF.nombreKm, {'label': 'Nombre de Kilomètres:', 'label_attr': {'class': 'label-class'}}) }}
+                </div>
+                <div class="form-group align-input">
+                    {{ form_row(formLFF.nuitee, {'label': 'Nombre de Nuitées:', 'label_attr': {'class': 'label-class'}}) }}
+                </div>
+                <div class="form-group align-input">
+                    {{ form_row(formLFF.repas, {'label': 'Nombre de Repas:', 'label_attr': {'class': 'label-class'}}) }}
+                </div>
+                <div class="form-group center">
+                    {{ form_row(formLFF.submit, {'label': 'Soumettre'}) }}
+                </div>
+                {{ form_end(formLFF) }}
+            </div>
+
+            <div class="col card">
+                <h1>Formulaire de Frais Hors Forfait</h1>
+                {{ form_start(formFHF) }}
+                <div class="form-group align-input">
+                    {{ form_row(formFHF.libelle, {'label': 'Libellé:', 'label_attr': {'class': 'label-class'}}) }}
+                </div>
+                <div class="form-group align-input">
+                    {{ form_row(formFHF.montant, {'label': 'Montant:', 'label_attr': {'class': 'label-class'}}) }}
+                </div>
+                <div class="form-group align-input">
+                    {{ form_row(formFHF.date, {'label': 'Date:', 'attr': {'type': 'date'}, 'label_attr': {'class': 'label-class'}}) }}
+                </div>
+                <div class="form-group center">
+                    {{ form_row(formFHF.submit, {'label': 'Soumettre'}) }}
+                </div>
+                {{ form_end(formFHF) }}
+            </div>
+        </div>
+
+
+        <h1 class="title text-center">Frais Hors Forfait</h1>
+        <table class="table table-bordered text-center">
+            <thead class="table-warning">
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Libellé</th>
+                <th scope="col">Montant</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for frais in fraisHorsForfait %}
+                <tr>
+                    <td>{{ frais.getDate()|date('d/m/Y') }}</td>
+                    <td>{{ frais.getLibelle() }}</td>
+                    <td>{{ frais.getMontant() }}</td>
+                    <td>
+                        <form method="post" action="{{ path('app_delete_fiche_hors_forfait', {'id': frais.getId()}) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .title{
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        .label-class {
+            margin-right: 1rem;
+        }
+        .align-input {
+            display: flex;
+            justify-content: space-between;
+        }
+        .view {
+            padding-bottom: 2rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            padding-top: 2rem;
+        }
+        .center {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+{% endblock %}
