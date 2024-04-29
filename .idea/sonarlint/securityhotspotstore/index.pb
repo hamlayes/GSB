@@ -141,3 +141,13 @@ c
 3src/Controller/DeleteFicheHorsForfaitController.php,0\a\0ab68760334d9790ee6765430b86fdf1e6d28e47
 V
 &src/Controller/ComptableController.php,5\5\554df2bb658add3aa8a8687adfde37a1306341da
+H
+src/Form/AllUserType.php,7\1\717830a6e17d6a75531d4d904920cca12cb5b839
+D
+config/services.yaml,8\7\87042d1f46b57381244d70e7a42feeb7710727dc
+Y
+)src/Controller/VueFicheUserController.php,e\e\ee47c80a399965f7dad726a4430e3562c62e5297
+=
+composer.lock,c\3\c3262e2a0879195bd6a727e90f768bc85ad79ffd
+X
+(templates/vue_fiche_user/index.html.twig,8\b\8bea79afbad33474e419eaf844b4057925c3284c
