@@ -35,8 +35,10 @@ class VueFicheUserController extends AbstractController
             $ficheFrais->setEtat($etat);
             $entityManager->persist($ficheFrais);
             $entityManager->flush();
+            $this->redirectToRoute('app_vue_fiche_user', ['id' => $id]);
 
         }
+        $form->get('Etat')->setData($ficheFrais->getEtat());
 
 
 
