@@ -53,6 +53,7 @@ security:
 
         # matches /admin/* except for anything matching the above rule
         - { path: '^/user', roles: ROLE_USER }
+        - { path: ^/comptable, roles: ROLE_COMPTABLE }
 
 when@test:
     security:

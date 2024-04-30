@@ -38,6 +38,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/saisifichefrais">Saisir Fiche</a>
                     </li>
+                    {% if is_granted('ROLE_COMPTABLE') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/comptable">Comptable</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
@@ -46,6 +51,7 @@
                         <a class="nav-link" href="/login">Login</a>
                     </li>
                 {% endif %}
+
             </ul>
         </div>
 
