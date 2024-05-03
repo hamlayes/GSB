@@ -44,6 +44,12 @@
                 </div>
                 {{ form_end(formFHF) }}
             </div>
+
+            {% for message in app.flashes('warning') %}
+            <div class="alert alert-warning">
+                {{ message }}
+                }
+                {% endfor %}
         </div>
 
 

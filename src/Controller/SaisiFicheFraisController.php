@@ -109,15 +109,12 @@ class SaisiFicheFraisController extends AbstractController
             $entity->persist($ligneFraisForfaitRepas);
             $entity->flush();
 
-            return $this->redirectToRoute('app_saisi_fiche_frais');
+        } else {
+            $formLigneFF->get('etape')->setData($ligneFraisForfaitEtape->getQuantite());
+            $formLigneFF->get('nombreKm')->setData($ligneFraisForfaitKm->getQuantite());
+            $formLigneFF->get('nuitee')->setData($ligneFraisForfaitNuitee->getQuantite());
+            $formLigneFF->get('repas')->setData($ligneFraisForfaitRepas->getQuantite());
         }
-
-
-        $formLigneFF->get('etape')->setData($ligneFraisForfaitEtape->getQuantite());
-        $formLigneFF->get('nombreKm')->setData($ligneFraisForfaitKm->getQuantite());
-        $formLigneFF->get('nuitee')->setData($ligneFraisForfaitNuitee->getQuantite());
-        $formLigneFF->get('repas')->setData($ligneFraisForfaitRepas->getQuantite());
-
 
         $formLigneFHF = $this->createForm(SaisirLigneFraisHorsForfaitType::class);
         $formLigneFHF->handleRequest($request);
@@ -137,12 +134,15 @@ class SaisiFicheFraisController extends AbstractController
             $ligneFraisHorsForfait->setLibelle($ligneFraisHorsForfaitLibelle);
             $ligneFraisHorsForfait->setMontant($ligneFraisHorsForfaitMontant);
 
+            $ficheFrais->addLignefraisHorsForfait($ligneFraisHorsForfait);
+            if (!$this->checkTotal($ficheFrais)) {
+                $this->addFlash('warning', 'Le montant total des frais hors forfait ne peut pas dépasser 2450€. Contactez le service comptabilité');
+            } else {
+                $entity->persist($ligneFraisHorsForfait);
+                $entity->flush();
+            }
 
-            $entity->persist($ligneFraisHorsForfait);
-            $entity->flush();
 
-            // Redirection après l'envoi du formulaire
-            return $this->redirectToRoute('app_saisi_fiche_frais');
         }
 
         $affichageLigneFraisHorsForfait = $entity->getRepository(LigneFraisHorsForfait::class)->findBy(['fichesFrais' => $ficheFrais]);
@@ -165,4 +165,16 @@ class SaisiFicheFraisController extends AbstractController
 
         return $this->redirectToRoute('app_saisi_fiche_frais');
     }
+    public function checkTotal(FicheFrais $ficheFrais): bool
+    {
+        $totalHorsForfait = $ficheFrais->gethorsforfait();
+        if ($ficheFrais->isDepassement()) {
+            return true;
+        } elseif ($totalHorsForfait > 2450) {
+            return false;
+        }
+
+        return true;
+    }
+
 }

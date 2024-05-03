@@ -30,15 +30,23 @@ class VueFicheUserController extends AbstractController
         $form = $this->createForm(\App\Form\ChangeEtatType::class, null, ['allEtat' => $etatRepository->findAll()]);
         $form->handleRequest($request);
 
+
         if($form->isSubmitted() && $form->isValid()){
             $etat = $form->get('Etat')->getData();
+            $depassementAutorise = $form->get('confirm')->getData();
+
             $ficheFrais->setEtat($etat);
+            $ficheFrais->setDepassement($depassementAutorise);
+
             $entityManager->persist($ficheFrais);
             $entityManager->flush();
-            $this->redirectToRoute('app_vue_fiche_user', ['id' => $id]);
 
+            $this->redirectToRoute('app_vue_fiche_user', ['id' => $id]);
+        } else {
+            $form->get('Etat')->setData($ficheFrais->getEtat());
+            $form->get('confirm')->setData($ficheFrais->getDepassement());
         }
-        $form->get('Etat')->setData($ficheFrais->getEtat());
+
 
 
 

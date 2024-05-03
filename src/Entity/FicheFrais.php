@@ -42,6 +42,9 @@ class FicheFrais
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $montantValid = null;
 
+    #[ORM\Column]
+    private ?bool $depassement = null;
+
     public function __construct()
     {
         $this->LignefraisHorsForfait = new ArrayCollection();
@@ -208,6 +211,23 @@ class FicheFrais
         }
 
         return $montantTotal;
+    }
+
+    public function isDepassement(): ?bool
+    {
+        return $this->depassement;
+    }
+
+    public function getDepassement(): ?bool
+    {
+        return $this->depassement;
+    }
+
+    public function setDepassement(bool $depassement): static
+    {
+        $this->depassement = $depassement;
+
+        return $this;
     }
 
 

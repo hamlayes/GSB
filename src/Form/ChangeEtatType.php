@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Etat;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,6 +24,10 @@ class ChangeEtatType extends AbstractType
                     'class'=>'form-control dropdown-toggle'
                 ]
 
+            ])
+            ->add('confirm', CheckboxType::class, [
+                'label'    => 'Dépassement de seuil autorisé',
+                'required' => false,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'valider',  // Texte du bouton

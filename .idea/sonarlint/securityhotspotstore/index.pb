@@ -353,3 +353,13 @@ w
 G.idea/sonarlint/issuestore/9/5/957d122c661aab50f5c74245962c94b1a3a03760,b\2\b250c2babea04ded815a4a6f9b3db64dd77c7b6d
 w
 G.idea/sonarlint/issuestore/9/f/9fe84ebb15faf917b7def6236dba604453cc61e0,f\0\f0e0f9cec86fe4b939ae22be5264c758801eb28f
+K
+src/Form/ChangeEtatType.php,1\b\1ba98045e2c8f23fac96e8c608a30c07a9feb4ae
+Y
+)src/Repository/FraisForfaitRepository.php,d\6\d696de462b9a1e7e7b274ffd48213ab6e9fa9238
+Q
+!src/Repository/EtatRepository.php,a\f\af3d5b10e8d34ea8babe76010c064d71080de28d
+4
+.env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
+C
+src/Entity/Etat.php,e\3\e37c460c47c615bc9684baad5b5ae744eefcca58
